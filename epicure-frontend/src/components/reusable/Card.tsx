@@ -1,24 +1,38 @@
-import React, { Fragment } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { DishFooter } from "./DishFooter";
 
 const isDish = (object: Dish | Restaurant): object is Dish => {
   return (object as Dish).dishName !== undefined;
 };
 
-export const Card: React.FC<{
+export const Card = (props: {
   data: Dish | Restaurant;
   isMinimalShow?: boolean;
-}> = (props: { data: Dish | Restaurant; isMinimalShow?: boolean }) => {
+  openModalHandler?: Function;
+  
+}) => {
   const specificClassName: string = isDish(props.data)
     ? "dish-card"
     : !!props.isMinimalShow
     ? "restaurant-minimal-card"
     : "restaurant-card";
 
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (!isDish(props.data)) {
+      navigate(`/restaurant/${props.data.id}`, {
+        state: props.data,
+      });
+    } else if (!!props.openModalHandler) {
+      props.openModalHandler(props.data);
+    }
+  };
   return (
     <article
-      className={specificClassName.concat(
-        " card flex-column flex-center space-between"
-      )}
+      onClick={handleClick}
+      className={specificClassName.concat(" card")}
     >
       <img src={props.data.imagePath} alt='dish'></img>
       {isDish(props.data) ? (
@@ -26,37 +40,8 @@ export const Card: React.FC<{
       ) : (
         <h2 className='card-title'>{props.data.restaurantName}</h2>
       )}
-      {isDish(props.data) && (
-        <div className="dish-footer flex-column flex-center space-around">
-          <p>{props.data.dishDescription}</p>
-          <div className='sensitivities-icons flex-row'>
-            {props.data.dishSensitivities.map((sensitivity) => {
-              return (
-                <img src={`assets/icons/${sensitivity}-icon.svg`} alt='sensitivity-icon'></img>
-              )
-            })}
-          </div>
-          <div className='flex-center flex-row gap-10'>
-            <div className='price-line'></div>
-            <p className='price'>{"₪" + props.data.dishPrice}</p>
-            <div className='price-line'></div>
-          </div>
-        </div>
-      )}
+      {isDish(props.data) && <DishFooter data={props.data} />}
       {!isDish(props.data) && !props.isMinimalShow && <p>{props.data.chef}</p>}
     </article>
-  );
-};
-
-export const DishFooter: React.FC<{ data: Dish }> = (props: { data: Dish }) => {
-  return (
-    <div className='flex-column'>
-      <p>{props.data.dishDescription}</p>
-      <div className='flex-center flex-row '>
-        <div className='price-line'></div>
-        <p>{"₪" + props.data.dishPrice}</p>
-        <div className='price-line'></div>
-      </div>
-    </div>
   );
 };

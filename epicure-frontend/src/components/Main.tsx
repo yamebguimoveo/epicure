@@ -1,13 +1,18 @@
 import { Homepage } from "./pages/homepage/Homepage";
-import { Routes,Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { RestaurantsPage } from "./pages/resturants/RestaurantsPage";
-
+import { mockRestaurants } from "../utils/mockData";
+import { RestaurantPage } from "./pages/single-restaurant-page/RestaurantPage";
 export const Main = () => {
   return (
-    <main className='main flex-column flex-center'>
-      <Routes >
-        <Route path="/" element={<Homepage />}></Route>
-        <Route path="restaurants" element={<RestaurantsPage/>}></Route>
+    <main className='main'>
+      <Routes>
+        <Route path='/' element={<Homepage />}></Route>
+        <Route
+          path='restaurants'
+          element={<RestaurantsPage restaurants={mockRestaurants} />}
+        ></Route>
+        <Route path='restaurant/:restaurantId' element={<RestaurantPage />} />
       </Routes>
     </main>
   );

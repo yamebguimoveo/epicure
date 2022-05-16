@@ -1,0 +1,77 @@
+.week-chef-section {
+  width: 100%;
+  margin-bottom: 120px;
+  .section-title {
+    margin-bottom: 40px;
+  }
+  .secondary-title {
+    font-size: 30px;
+    letter-spacing: 1px;
+    margin: 60px 0 20px 0;
+  }
+  .chef-description {
+    line-height: 30px;
+    max-width: 540px;
+    align-self: start;
+    font-size: 25px;
+    margin-left:70px;
+  }
+  .chef-restaurants-cards {
+    gap:20px;
+    width: 100%;
+  }
+  .restaurant-minimal-card {
+    width: 230px;
+    height: 360px;
+    .card-title {
+      margin: auto 0;
+    }
+    img {
+      height: 220px;
+    }
+  }
+
+  @include for-mobile-layout {
+    align-items: center;
+    margin-botton:100px;
+    .chef-middle-content {
+      padding: 0 25px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      line-height: normal;
+      letter-spacing: 1.04px;
+      .section-title {
+        margin-bottom: 15px;
+      }
+      .chef-description {
+        max-width: 330px;
+        font-size: 14px;
+      }
+      .chef-image {
+        max-width: 330px;
+        max-height: 240px;
+        margin-bottom: 20px;
+      }
+    }
+    .secondary-title {
+      align-self: start;
+      padding: 0 20px;
+      margin: 10px 0 20px 0;
+      font-size: 14px;
+    }
+    .card {
+      width: 150px;
+      height: 240px;
+      .card-title {
+        font-size: 20px;
+        letter-spacing: 1.3px;
+      }
+      img {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  }
+}

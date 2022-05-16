@@ -1,10 +1,18 @@
-interface Restaurant{
-    imagePath: string,
-    chef:string
-    restaurantName: string,
+
+interface Restaurant {
+  id:number,
+  imagePath: string,
+  chef: string
+  restaurantName: string,
+  tags: string[],
+  dishesId:number[]
 }
 
-interface Dish extends Restaurant{
+interface Dish{
+  id: number,
+   chef: string,
+  restaurantName: string,
+  imagePath: string,
     dishName: string,
     dishPrice: number,
     dishDescription: string,
@@ -21,4 +29,10 @@ interface Chef{
   chefDescription: string,
   chefImageChef:string,
   ownRestaurant: Restaurant[],
+}
+
+type RestaurantLocation = {
+  from: {
+    state : Restaurant;
+  }
 }

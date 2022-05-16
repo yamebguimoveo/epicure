@@ -3,7 +3,11 @@
 $primary-text-color: #000000;
 $background-color: #de9200;
 $background-secondary-color:#fafafa;
+$mobile-link-button-color:rgba(232, 196, 122, 0.8);
+$card-mobile-background-color:#f7e0b2;
 $card-background-color:#f9f4ea;
+$header-border-color:#979797;
+
 
 
 /* LAYOUT */
@@ -19,8 +23,8 @@ $layoutimgswidth:1120px;
 
 
 /* LAYOUT BREAKPOINTS */
-$break-narrow: 460px;
-$break-normal: 640px;
+$break-narrow: 500px;
+$break-normal: 650px;
 $break-wide: 980px;
 
 

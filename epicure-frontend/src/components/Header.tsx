@@ -1,32 +1,74 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { SearchInput } from "./reusable/SearchInput";
+import { useMediaQuery } from "react-responsive";
+import { Sidebar } from "./mobile/Sidebar";
+import { Fragment, useState } from "react";
 
 export const Header = () => {
+  const isMobile = useMediaQuery({ query: "(max-width:500px)" });
+  //forMobile
+  const [isSidebarHidden, setIsSidebarHidden] = useState(true);
+
+  const sidebarHandler = () => {
+    setIsSidebarHidden(!isSidebarHidden);
+  };
+
   return (
-    <header className='header flex-row space-around'>
-      <ul className='flex-row flex-center space-between gap-30'>
-        <Link to='/'>
-          <li className='nav-item logo flex-center flex-row'>
-            <img src='assets/logo/logo.jpg' alt='logo'></img>
-            <p className='logo-title'>EPICURE</p>
+    <Fragment>
+      <header className='header flex-row space-around'>
+        {isMobile ? (
+          <button className='sidebar-button'>
+            <img
+              className='sidebar-button'
+              src='/assets/icons/mobile-sidebar-icon.svg'
+              alt='sidebar-button'
+              onClick={sidebarHandler}
+            ></img>
+          </button>
+        ) : (
+          <ul className='header-navlinks'>
+            <Link to='/'>
+              <li className='nav-item logo'>
+                <img src={"/assets/logo/logo.jpg"} alt='logo'></img>
+                <p className='logo-title'>EPICURE</p>
+              </li>
+            </Link>
+            <NavLink to='/restaurants'>
+              <li className='nav-item'>Restaurants</li>
+            </NavLink>
+            <li className='nav-item'>Chefs</li>
+          </ul>
+        )}
+        {isMobile ? (
+          <Link to='/'>
+            <li className='nav-item logo'>
+              <img src='/assets/logo/logo.jpg' alt='logo'></img>
+            </li>
+          </Link>
+        ) : (
+          <></>
+        )}
+        <ul className='header-secondary-links'>
+          <li className='nav-item'>
+            <SearchInput />
           </li>
-        </Link>
-        <Link to='/restaurants'>
-          <li className='nav-item'>Restaurants</li>
-        </Link>
-        <li className='nav-item'>Chefs</li>
-      </ul>
-      <ul className='flex-row flex-center gap-30'>
-        <li className='nav-item'>
-          <SearchInput />
-        </li>
-        <li className='nav-item'>
-          <img src='assets/icons/user-icon.svg' alt='user'></img>
-        </li>
-        <li className='nav-item'>
-          <img src='assets/icons/bag-icon.svg' alt='cart'></img>
-        </li>
-      </ul>
-    </header>
+          <li className='nav-item'>
+            <img
+              className='action-icon'
+              src='/assets/icons/user-icon.svg'
+              alt='user'
+            ></img>
+          </li>
+          <li className='nav-item'>
+            <img
+              className='action-icon'
+               src='/assets/icons/bag-icon.svg'
+              alt='cart'
+            ></img>
+          </li>
+        </ul>
+      </header>
+      <Sidebar isHidden={isSidebarHidden} hiddenStateFunc={sidebarHandler} />
+    </Fragment>
   );
 };

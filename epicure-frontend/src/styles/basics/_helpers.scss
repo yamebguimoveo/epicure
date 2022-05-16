@@ -54,11 +54,6 @@ margin-bottom: 25px;
 .padding-2px{
     padding-top: 2px;
 }
-.flex-center{
-    display: flex;
-    align-items: center;
-    justify-self: center;
-}
 .center-1px{
     margin-top: 1px;
 }
@@ -114,10 +109,15 @@ align-self: start;
 align-self: center;   
 }   
 
+.flex-center{
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
 
 .flex-row{
-    display: flex;
     flex-direction: row;
+    display: flex;
 }
 .flex-column{
     display: flex;

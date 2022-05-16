@@ -1,0 +1,19 @@
+//note: popup libary creates this classes of content, overlay ...
+
+.popup-content {
+  animation: slideInFromLeft 1s;
+  display: flex;
+  flex-direction: column;
+  height: 85%;
+  overflow: scroll;
+  .dish-modal {
+    background: white;
+  }
+  @include for-mobile-layout {
+    height: 100%;
+    width: 100%;
+  }
+}
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
