@@ -32,7 +32,7 @@
       .price-line {
         width: 112px;
         height: 1px;
-        border: solid 0.5px #979797;
+        border-bottom: solid 0.5px #979797;
       }
       .price {
         margin: 0 15px;
@@ -67,7 +67,14 @@
           border: solid 0.5px #979797;
         }
         .price {
-          margin: 0 15px;
+          font-family: HelveticaNeue;
+          font-size: 25px;
+          margin: 0 5px;
+          .price-symbol {
+            font-family: Arial ;
+            font-size: 16px;
+            margin-right: 5px;
+          }
         }
       }
     }

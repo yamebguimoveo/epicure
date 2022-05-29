@@ -6,7 +6,7 @@ export const Sidebar = (props: {
   hiddenStateFunc: () => void;
 }) => {
   return (
-    <div
+    <nav
       onClick={props.hiddenStateFunc}
       className={props.isHidden ? "hidden" : ""}
     >
@@ -47,6 +47,6 @@ export const Sidebar = (props: {
           </Link>
         </ul>
       </div>
-    </div>
+    </nav>
   );
 };

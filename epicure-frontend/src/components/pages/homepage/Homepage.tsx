@@ -7,28 +7,26 @@ import { IconsSection } from "./IconsSection";
 import { ChefOfTheWeek } from "./ChefOfTheWeek";
 import { AboutUs } from "./AboutUs";
 //import mock data
-import { mockDishes, mockChef, mockRestaurants } from "../../../utils/mockData";
+import { mockChef } from "../../../utils/mockData";
 import { MobileLinksSection } from "../../mobile/MobileLinksSection";
 //import services
-import { getSignatureDishes } from "../../../services/getSignetureDishes";
-import { getRecommendedRestaurants } from "../../../services/getRecommendedRestaurant";
-import { getCOTW } from "../../../services/getChefOfTheWeek";
+import { getHomepageData } from "../../../services/homepage/getHomepageData";
 
 export const Homepage = () => {
-  const [recommendedRestaurants, setRecommendedRestaurants] = useState<Restaurant[]>([]);
-  const [signatureDishes, setSignatureDishes] = useState<Dish[]>([]);
-  const [ChefWeek, setChefWeek] = useState<Chef>(mockChef);
-
+  const [recommendedRestaurants, setRecommendedRestaurants] = useState<
+    Restaurant[] | null
+  >(null);
+  const [signatureDishes, setSignatureDishes] = useState<Dish[] | null>(null);
+  const [ChefWeek, setChefWeek] = useState<Chef | null>(null);
 
   useEffect(() => {
     async function getDishesForHomepage() {
-      const dishes = await getSignatureDishes();
-      const restaurants = await getRecommendedRestaurants();
-      const chef = await getCOTW();
-      console.log(dishes);
-      setChefWeek(chef);
-      setRecommendedRestaurants(restaurants);
-      setSignatureDishes(dishes);
+      const homepageReq = await getHomepageData();
+      console.log(homepageReq);
+
+      setChefWeek(homepageReq.chef);
+      setRecommendedRestaurants(homepageReq.restaurants);
+      setSignatureDishes(homepageReq.dishes);
     }
     getDishesForHomepage();
   }, []);
@@ -40,7 +38,7 @@ export const Homepage = () => {
       <RecommendedRestaurants restaurants={recommendedRestaurants} />
       <SignatureDishes dishes={signatureDishes} />
       <IconsSection />
-       <ChefOfTheWeek chef={ChefWeek} />
+      <ChefOfTheWeek chef={ChefWeek} />
       <AboutUs />
     </Fragment>
   );

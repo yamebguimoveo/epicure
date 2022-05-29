@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { DishFooter } from "./DishFooter";
 
 const isDish = (object: Dish | Restaurant): object is Dish => {
-  return (object as Dish).dishName !== undefined;
+  return (object as Dish).price !== undefined;
 };
 
 export const Card = (props: {
   data: Dish | Restaurant;
   isMinimalShow?: boolean;
   openModalHandler?: Function;
-  
 }) => {
   const specificClassName: string = isDish(props.data)
     ? "dish-card"
@@ -22,7 +21,7 @@ export const Card = (props: {
 
   const handleClick = () => {
     if (!isDish(props.data)) {
-      navigate(`/restaurant/${props.data.id}`, {
+      navigate(`/restaurant/${props.data._id}`, {
         state: props.data,
       });
     } else if (!!props.openModalHandler) {
@@ -34,14 +33,12 @@ export const Card = (props: {
       onClick={handleClick}
       className={specificClassName.concat(" card")}
     >
-      <img src={props.data.imagePath} alt='dish'></img>
-      {isDish(props.data) ? (
-        <h2 className='card-title'>{props.data.dishName}</h2>
-      ) : (
-        <h2 className='card-title'>{props.data.restaurantName}</h2>
-      )}
+      <img src={props.data.imageSrc} alt='dish'></img>
+      <h2 className='card-title'>{props.data.name}</h2>
       {isDish(props.data) && <DishFooter data={props.data} />}
-      {!isDish(props.data) && !props.isMinimalShow && <p>{props.data.chef}</p>}
+      {!isDish(props.data) && !props.isMinimalShow && (
+        <p>{props.data.chef.name}</p>
+      )}
     </article>
   );
 };

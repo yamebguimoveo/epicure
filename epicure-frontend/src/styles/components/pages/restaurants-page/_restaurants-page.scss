@@ -1,5 +1,13 @@
-.restaurants-navbar {
-  animation: slideInFromLeft 1s;
+.page-title {
+  display: none;
+  @include for-mobile-layout {
+    font-size: 20px;
+    display: block;
+    font-family: HelveticaNeue;
+    margin: 20px 0;
+  }
+}
+.filter-navbar {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -8,17 +16,20 @@
   margin: 40px 0;
   .restaurants-filter-button {
     font-size: 18px;
-    font-family: HelveticaNeueThin;
+    font-family: HelveticaNeue;
   }
 
   .nav-active {
     padding: 0 1px;
-    border-bottom: 2px solid rgba($background-color, 0.9);
+    font-family: HelveticaNeueBold;
+  }
+  @include for-mobile-layout {
+    margin: 0;
+    margin-bottom: 20px;
   }
 }
 
 .restaurants-cards {
-  animation: slideInFromLeft 1s;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,6 +37,7 @@
   max-width: 1100px;
   flex-flow: wrap;
   gap: 40px;
+  margin-bottom: 20px;
   .card {
     margin: 0 auto;
     width: 340px;
@@ -40,6 +52,7 @@
   @include for-mobile-layout {
     justify-content: center;
     gap: 10px;
+    margin-bottom: 20px;
     .card {
       margin: 0;
       font-size: 13px;

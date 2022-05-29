@@ -5,10 +5,11 @@ import { Sidebar } from "./mobile/Sidebar";
 import { Fragment, useState } from "react";
 
 export const Header = () => {
-  const isMobile = useMediaQuery({ query: "(max-width:500px)" });
   //forMobile
+  const isMobile = useMediaQuery({ query: "(max-width:500px)" });
   const [isSidebarHidden, setIsSidebarHidden] = useState(true);
-
+  
+  //handler function for open/close sidebar 
   const sidebarHandler = () => {
     setIsSidebarHidden(!isSidebarHidden);
   };

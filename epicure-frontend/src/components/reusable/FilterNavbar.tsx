@@ -1,5 +1,5 @@
 import React from "react";
-import { NavbarButton } from "../pages/resturants/NavbarButton";
+import { NavbarButton } from "./NavbarButton";
 
 export const FilterNavbar = (props: {
   activeFilterTerm: string;

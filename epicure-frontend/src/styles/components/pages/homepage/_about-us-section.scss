@@ -57,6 +57,8 @@
   }
   @include for-mobile-layout {
     justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 60px;
     .section-title {
       align-self: center;
       margin-bottom: 10px;
@@ -68,7 +70,7 @@
       .about-us-middle-content {
         flex-direction: column;
         justify-content: center;
-        margin-bottom: 35px;
+        margin-bootom: 0;
         .about-us-logo {
           margin: 35px 0 35px 0;
         }

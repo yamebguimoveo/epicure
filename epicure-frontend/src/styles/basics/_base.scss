@@ -4,9 +4,11 @@
 }
 
 html {
+  height: 100%;
 }
 
 body {
+  height: 100%;
   margin: 0;
   font-family: HelveticaNeueThin, Arial, Helvetica, sans-serif;
 }
@@ -29,7 +31,7 @@ a {
 
 button {
   border: none;
-  color:black;
+  color: black;
   background: none;
   cursor: pointer;
 }

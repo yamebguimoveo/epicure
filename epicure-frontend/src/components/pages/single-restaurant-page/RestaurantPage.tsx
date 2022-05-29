@@ -1,18 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { mockRestaurants, mockDishes } from "../../../utils/mockData";
 import { useParams } from "react-router-dom";
-import { NavbarButton } from "../resturants/NavbarButton";
 import { FilterNavbar } from "../../reusable/FilterNavbar";
 import { Card } from "../../reusable/Card";
 import Popup from "reactjs-popup";
+import ReactLoading from "react-loading";
 import { DishModal } from "./DishModal";
+import { getRestaurant } from "../../../services/restaurantPage/getRestaurant";
+import { getDishesByRestaurant } from "../../../services/restaurantPage/getDishesByRestaurants";
 
 type Meal = "Breakfast" | "Lunch" | "Dinner";
 
-export const RestaurantPage = (props: {}) => {
+export const RestaurantPage = () => {
   const { restaurantId } = useParams<string>();
   const [filterTerm, setFilterTerm] = useState<Meal>("Breakfast");
   const [dishModal, setDishModal] = useState<Dish | null>(null);
+  const [restaurant, setRestaurant] = useState<Restaurant>();
+  const [dishes, setDishes] = useState<Dish[]>();
+
+  useEffect(() => {
+    async function getRestaurantPageData() {
+      if (restaurantId) {
+        const restaurantReq = await getRestaurant(restaurantId);
+        const dishesReq = await getDishesByRestaurant(restaurantId);
+        setRestaurant(restaurantReq.data.restaurant);
+        setDishes(dishesReq.data.dishes);
+      }
+    }
+    getRestaurantPageData();
+  }, []);
 
   const handleClickOnDish = (dish: Dish) => {
     console.log(dish);
@@ -35,24 +51,26 @@ export const RestaurantPage = (props: {}) => {
       setFilterTerm(newFilterTerm);
     }
   };
-
-  let restaurant: Restaurant | undefined;
-
-  if (typeof restaurantId === "string") {
-    restaurant = mockRestaurants.find((x) => x.id === parseInt(restaurantId));
-  } else {
-    return <div>Cannot get this restaurant</div>;
+  if (restaurant === undefined || dishes === undefined) {
+    return (
+      <ReactLoading
+        type={"balls"}
+        color={"#f7e0b2"}
+        height={"20%"}
+        width={"10%"}
+      />
+    );
   }
 
   return (
     <section className='restaurant-page'>
       <img
         className='restaurant-page-image'
-        src={restaurant!.imagePath}
-        alt={restaurant!.restaurantName}
+        src={restaurant!.imageSrc}
+        alt={restaurant!.name}
       ></img>
-      <h2 className='restaurant-title'>{restaurant!.restaurantName}</h2>
-      <h3 className='restaurant-chef'>{restaurant!.chef}</h3>
+      <h2 className='restaurant-title'>{restaurant!.name}</h2>
+      <h3 className='restaurant-chef'>{restaurant!.chef.name}</h3>
       <h4 className='restaurant-availability'>
         <img src={"/assets/icons/clock-icon.svg"} alt='clock'></img>
         <span>Open Now</span>
@@ -64,21 +82,18 @@ export const RestaurantPage = (props: {}) => {
         handlerFunc={handleFilter}
       />
       <div className='dish-cards'>
-        {restaurant!.dishesId.map((dishId, index) => {
+        {dishes.map((dish, index) => {
           return (
             <Popup
               key={index}
-              open={dishModal?.id === dishId ? true : false}
+              open={dishModal !== null ? true : false}
               trigger={
-                <Card
-                  openModalHandler={handleClickOnDish}
-                  data={mockDishes.find((dish) => dish.id === dishId)!}
-                />
+                <Card openModalHandler={handleClickOnDish} data={dish} />
               }
               modal
             >
               <DishModal
-                dish={mockDishes.find((dish) => dish.id === dishId)!}
+                dish={dish}
                 closeModalHandler={handleCloseModal}
                 sideDishes={["White Bread", "Sticky Rice"]}
                 changes={["Without Peanuts", "Less Spicy"]}

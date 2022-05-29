@@ -1,5 +1,4 @@
 .hero-section {
-  animation: slideInFromLeft 1s;
   display: flex;
   align-items: center;
   justify-self: center;
@@ -55,6 +54,7 @@
     }
   }
   @include for-mobile-layout {
+    animation: slideInFromLeft 0.3s;
     height: 270px;
     max-width: 500px;
     margin-bottom: 0;

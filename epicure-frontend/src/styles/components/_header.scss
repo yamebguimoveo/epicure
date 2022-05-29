@@ -1,9 +1,15 @@
 .header {
-  animation: slideInFromTop 0.5s;
+  position: sticky;
+  top: 0;
+
+  background-color: white;
+  width: 100%;
+  height: 55px;
+  z-index: 3;
+  animation: slideInFromTop 0.2s;
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 55px;
   border-bottom: 0.2px solid rgba($header-border-color, 0.1);
   .active {
     border-bottom: 2px solid rgba($background-color, 0.9);

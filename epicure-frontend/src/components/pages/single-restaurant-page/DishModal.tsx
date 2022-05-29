@@ -43,7 +43,7 @@ export const DishModal = (props: {
   const handleDishOrder = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(
-      "The user add to cart " + quantity.toString() + " " + props.dish?.dishName
+      "The user add to cart " + quantity.toString() + " " + props.dish?.name
     );
     console.log(selectedChanges);
     console.log(selectedSideDish);
@@ -62,8 +62,8 @@ export const DishModal = (props: {
         ></img>
       </div>
       <div className='dish-modal'>
-        <img className='dish-image' src={props.dish.imagePath} alt='dish' />
-        <h3 className='dish-title'>{props.dish.dishName}</h3>
+        <img className='dish-image' src={props.dish.imageSrc} alt='dish' />
+        <h3 className='dish-title'>{props.dish.name}</h3>
         <DishFooter data={props.dish} />
         <form onSubmit={(e) => handleDishOrder(e)} className='dish-form'>
           <div className='dish-form-side'>

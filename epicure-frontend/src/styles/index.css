@@ -389,12 +389,6 @@
 /* Media queries Breakpoint mixins */
 /* Media  Mixins */
 /* Media queries Breakpoint mixins */
-/* // @mixin layoutGTC($max) {
-//   grid-template-columns:
-//     minmax($layoutPadding, 1fr)
-//     minmax(auto, $max)
-//     minmax($layoutPadding, 1fr);
-// } */
 /* COLOR PALLETE */
 /* LAYOUT */
 /* LAYOUT-HOME */
@@ -421,7 +415,12 @@
   outline: none;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   margin: 0;
   font-family: HelveticaNeueThin, Arial, Helvetica, sans-serif;
 }
@@ -819,6 +818,7 @@ ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  min-height: calc(100vh - 90px - 55px);
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -831,12 +831,14 @@ ul {
 
 @media (max-width: 500px) {
   .main {
+    min-height: calc(100vh - 175px - 55px);
     gap: 0;
   }
 }
 
 .main .card-swiper {
   width: 100%;
+  margin-left: 20px;
 }
 
 .main .section-title {
@@ -886,8 +888,15 @@ ul {
 }
 
 .header {
-  -webkit-animation: slideInFromTop 0.5s;
-          animation: slideInFromTop 0.5s;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  width: 100%;
+  height: 55px;
+  z-index: 3;
+  -webkit-animation: slideInFromTop 0.2s;
+          animation: slideInFromTop 0.2s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -898,7 +907,6 @@ ul {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 55px;
   border-bottom: 0.2px solid rgba(151, 151, 151, 0.1);
 }
 
@@ -1011,7 +1019,7 @@ ul {
     margin-bottom: 50px;
   }
   .mobile-links-section .link-button {
-    background-color: #f7e0b2;
+    background-color: rgba(232, 196, 122, 0.8);
     padding: 15px;
     margin: 40px 10px;
   }
@@ -1091,8 +1099,6 @@ ul {
 }
 
 .hero-section {
-  -webkit-animation: slideInFromLeft 1s;
-          animation: slideInFromLeft 1s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1177,6 +1183,8 @@ ul {
 
 @media (max-width: 500px) {
   .hero-section {
+    -webkit-animation: slideInFromLeft 0.3s;
+            animation: slideInFromLeft 0.3s;
     height: 270px;
     max-width: 500px;
     margin-bottom: 0;
@@ -1212,8 +1220,7 @@ ul {
 .recommended-restaurant-section {
   width: 100%;
   max-width: 1100px;
-  margin: 30px 0 0;
-  gap: 30px;
+  margin: 0 0 0 0;
   margin-bottom: 90px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1229,6 +1236,7 @@ ul {
 }
 
 .recommended-restaurant-section .all-restaurant-link {
+  margin-top: 30px;
   white-space: nowrap;
   font-family: HelveticaNeue;
   font-size: 30px;
@@ -1252,7 +1260,7 @@ ul {
 }
 
 .recommended-restaurant-section .section-title {
-  margin-bottom: 10px;
+  margin-bottom: 40px;
 }
 
 .recommended-restaurant-section .card {
@@ -1263,6 +1271,7 @@ ul {
 
 @media (max-width: 500px) {
   .recommended-restaurant-section {
+    margin-top: 0px;
     margin-bottom: 100px;
   }
   .recommended-restaurant-section .all-restaurant-link {
@@ -1270,7 +1279,7 @@ ul {
   }
   .recommended-restaurant-section .card {
     gap: 0px;
-    background-color: #f7e0b2;
+    background-color: rgba(247, 224, 178, 0.7);
     width: 200px;
     height: 340px;
     font-size: 20px;
@@ -1335,7 +1344,7 @@ ul {
 .signature-dishes-section .card .dish-footer .price-line {
   width: 112px;
   height: 1px;
-  border: solid 0.5px #979797;
+  border-bottom: solid 0.5px #979797;
 }
 
 .signature-dishes-section .card .dish-footer .price {
@@ -1350,7 +1359,7 @@ ul {
     font-size: 16px;
   }
   .signature-dishes-section .card {
-    background-color: #f7e0b2;
+    background-color: rgba(247, 224, 178, 0.7);
     width: 260px;
     height: 470px;
     font-size: 17px;
@@ -1374,7 +1383,14 @@ ul {
     border: solid 0.5px #979797;
   }
   .signature-dishes-section .card .dish-footer .price {
-    margin: 0 15px;
+    font-family: HelveticaNeue;
+    font-size: 25px;
+    margin: 0 5px;
+  }
+  .signature-dishes-section .card .dish-footer .price .price-symbol {
+    font-family: Arial;
+    font-size: 16px;
+    margin-right: 5px;
   }
 }
 
@@ -1457,11 +1473,13 @@ ul {
 }
 
 .week-chef-section .chef-description {
-  line-height: 30px;
   max-width: 540px;
   -ms-flex-item-align: start;
       -ms-grid-row-align: start;
       align-self: start;
+  line-height: 1.2;
+  text-align: start;
+  letter-spacing: 1.1px;
   font-size: 25px;
   margin-left: 70px;
 }
@@ -1489,7 +1507,7 @@ ul {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    margin-botton: 100px;
+    margin-bottom: 100px;
   }
   .week-chef-section .chef-middle-content {
     padding: 0 25px;
@@ -1511,8 +1529,13 @@ ul {
     margin-bottom: 15px;
   }
   .week-chef-section .chef-middle-content .chef-description {
+    line-height: normal;
+    text-align: center;
+    letter-spacing: 1.04px;
     max-width: 330px;
     font-size: 14px;
+    margin-left: 0;
+    margin-bottom: 30px;
   }
   .week-chef-section .chef-middle-content .chef-image {
     max-width: 330px;
@@ -1527,6 +1550,9 @@ ul {
     margin: 10px 0 20px 0;
     font-size: 14px;
   }
+  .week-chef-section .card-swiper {
+    margin-left: 0;
+  }
   .week-chef-section .card {
     width: 150px;
     height: 240px;
@@ -1534,6 +1560,7 @@ ul {
   .week-chef-section .card .card-title {
     font-size: 20px;
     letter-spacing: 1.3px;
+    padding: 0 10px;
   }
   .week-chef-section .card img {
     width: 150px;
@@ -1644,6 +1671,8 @@ ul {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 60px;
   }
   .about-us-section .section-title {
     -ms-flex-item-align: center;
@@ -1666,7 +1695,7 @@ ul {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    margin-bottom: 35px;
+    margin-bootom: 0;
   }
   .about-us-section .about-us-content .about-us-middle-content .about-us-logo {
     margin: 35px 0 35px 0;
@@ -1691,9 +1720,20 @@ ul {
   }
 }
 
-.restaurants-navbar {
-  -webkit-animation: slideInFromLeft 1s;
-          animation: slideInFromLeft 1s;
+.page-title {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .page-title {
+    font-size: 20px;
+    display: block;
+    font-family: HelveticaNeue;
+    margin: 20px 0;
+  }
+}
+
+.filter-navbar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1709,19 +1749,24 @@ ul {
   margin: 40px 0;
 }
 
-.restaurants-navbar .restaurants-filter-button {
+.filter-navbar .restaurants-filter-button {
   font-size: 18px;
-  font-family: HelveticaNeueThin;
+  font-family: HelveticaNeue;
 }
 
-.restaurants-navbar .nav-active {
+.filter-navbar .nav-active {
   padding: 0 1px;
-  border-bottom: 2px solid rgba(222, 146, 0, 0.9);
+  font-family: HelveticaNeueBold;
+}
+
+@media (max-width: 500px) {
+  .filter-navbar {
+    margin: 0;
+    margin-bottom: 20px;
+  }
 }
 
 .restaurants-cards {
-  -webkit-animation: slideInFromLeft 1s;
-          animation: slideInFromLeft 1s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1737,6 +1782,7 @@ ul {
   -ms-flex-flow: wrap;
       flex-flow: wrap;
   gap: 40px;
+  margin-bottom: 20px;
 }
 
 .restaurants-cards .card {
@@ -1759,6 +1805,7 @@ ul {
         -ms-flex-pack: center;
             justify-content: center;
     gap: 10px;
+    margin-bottom: 20px;
   }
   .restaurants-cards .card {
     margin: 0;
@@ -1972,8 +2019,6 @@ ul {
 }
 
 .popup-content {
-  -webkit-animation: slideInFromLeft 1s;
-          animation: slideInFromLeft 1s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1981,7 +2026,7 @@ ul {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: 85%;
+  max-height: 85%;
   overflow: scroll;
 }
 
@@ -1997,12 +2042,10 @@ ul {
 }
 
 .popup-overlay {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .restaurant-page {
-  -webkit-animation: slideInFromLeft 1s;
-          animation: slideInFromLeft 1s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2021,7 +2064,7 @@ ul {
 }
 
 .restaurant-page .restaurant-page-image {
-  height: 250px;
+  height: 400px;
   -o-object-fit: cover;
      object-fit: cover;
   margin-bottom: 15px;
@@ -2096,11 +2139,7 @@ ul {
       -ms-flex-pack: center;
           justify-content: center;
   gap: 50px;
-}
-
-.restaurant-page .dish-cards .card:hover {
-  -webkit-filter: drop-shadow(3px 3px 6px);
-          filter: drop-shadow(3px 3px 6px);
+  margin-bottom: 20px;
 }
 
 .restaurant-page .dish-cards .card {
@@ -2207,6 +2246,9 @@ ul {
 }
 
 .footer {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100vh;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -2215,7 +2257,7 @@ ul {
       -ms-flex-pack: center;
           justify-content: center;
   text-align: center;
-  margin: 35px 0;
+  padding: 35px 0;
   font-size: 18px;
 }
 
@@ -2241,6 +2283,12 @@ ul {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  .footer {
+    border-top: 1px solid rgba(151, 151, 151, 0.1);
   }
 }
 
