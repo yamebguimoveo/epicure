@@ -6,6 +6,7 @@ interface IUser {
   name: string;
   email: string;
   password: string;
+  admin: boolean;
   passwordConfirm: boolean;
 }
 
@@ -25,6 +26,10 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: [true, "Please provide a password"],
     select: false,
+  },
+  admin: {
+    type: Boolean,
+    default: false,
   },
 });
 

@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { RestaurantHandler } from "../handlers/restaurant.handler";
+import { Authenticator } from "../middlewares/authenticator";
 
 export class RestaurantController {
   public router: Router = Router();
@@ -12,13 +13,25 @@ export class RestaurantController {
     this.router
       .route("/")
       .get(this.getRestaurants.bind(this))
-      .post(this.createRestaurant.bind(this));
+      .post(
+        Authenticator.protect,
+        Authenticator.restrictToAdmin,
+        this.createRestaurant.bind(this)
+      );
 
     this.router
       .route("/:id")
       .get(this.getRestaurant.bind(this))
-      .delete(this.deleteRestaurant.bind(this))
-      .patch(this.updateRestaurant.bind(this));
+      .delete(
+        Authenticator.protect,
+        Authenticator.restrictToAdmin,
+        this.deleteRestaurant.bind(this)
+      )
+      .patch(
+        Authenticator.protect,
+        Authenticator.restrictToAdmin,
+        this.updateRestaurant.bind(this)
+      );
   }
 
   async getRestaurants(req: Request, res: Response, next: NextFunction) {

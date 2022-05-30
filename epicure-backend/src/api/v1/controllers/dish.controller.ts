@@ -1,5 +1,6 @@
 import express, { Router, Request, Response, NextFunction } from "express";
 import { DishHandler } from "../handlers/dish.handler";
+import { Authenticator } from "../middlewares/authenticator";
 
 export class DishController {
   public router: Router = Router();
@@ -12,13 +13,25 @@ export class DishController {
     this.router
       .route("/")
       .get(this.getDishes.bind(this))
-      .post(this.createDish.bind(this));
+      .post(
+        Authenticator.protect,
+        Authenticator.restrictToAdmin,
+        this.createDish.bind(this)
+      );
 
     this.router
       .route("/:id")
       .get(this.getDish.bind(this))
-      .delete(this.deleteDish.bind(this))
-      .patch(this.updateDish.bind(this));
+      .delete(
+        Authenticator.protect,
+        Authenticator.restrictToAdmin,
+        this.deleteDish.bind(this)
+      )
+      .patch(
+        Authenticator.protect,
+        Authenticator.restrictToAdmin,
+        this.updateDish.bind(this)
+      );
   }
 
   async getDishes(req: Request, res: Response, next: NextFunction) {
