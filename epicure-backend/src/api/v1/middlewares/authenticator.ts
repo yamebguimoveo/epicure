@@ -1,21 +1,27 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import { AuthHandler } from "../handlers/auth.handler";
+import { UserHandler } from "../handlers/user.handler";
+
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: { email: string; admin: boolean; name: string };
+  }
+  interface Response {
+    user?: { email: string; admin: boolean; name: string };
+  }
+}
 
 export class Authenticator {
   public static async protect(req: Request, res: Response, next: NextFunction) {
     try {
+      const handler = new AuthHandler();
+      const userHandler = new UserHandler();
       const { authorization } = req.headers;
-      if (!authorization) throw "Token is missing";
-      console.log(authorization);
-
-      if (!authorization.startsWith("Bearer ")) {
-        throw "Token is missing";
-      }
-      const token = authorization.split(" ")[1];
-      if (!token) {
-        throw "Token is missing";
-      }
-      jwt.verify(token, process.env.JWT_SECRET || "SECRET");
+      //jwt payload return from verify ({email,name})
+      const { email } = await handler.verify(authorization);
+      const existUser = await userHandler.checkIfUserExists(email);
+      if (!existUser) throw { message: "User does not exist anymore" };
+      req.user = existUser;
       next();
     } catch (error) {
       res.status(403).json({
@@ -23,5 +29,19 @@ export class Authenticator {
         error,
       });
     }
+  }
+
+  public static async restrictToAdmin(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    if (!req.user!.admin) {
+      res.status(403).json({
+        status: "fail",
+        message: "User is not admin",
+      });
+    }
+    next();
   }
 }

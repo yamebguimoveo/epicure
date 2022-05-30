@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { ChefHandler } from "../handlers/chef.handler";
+import { Authenticator } from "../middlewares/authenticator";
 
 export class ChefController {
   public router: Router = Router();
@@ -12,13 +13,25 @@ export class ChefController {
     this.router
       .route("/")
       .get(this.getChefs.bind(this))
-      .post(this.createChef.bind(this));
+      .post(
+        Authenticator.protect,
+        Authenticator.restrictToAdmin,
+        this.createChef.bind(this)
+      );
 
     this.router
       .route("/:id")
       .get(this.getChef.bind(this))
-      .delete(this.deleteChef.bind(this))
-      .patch(this.updateChef.bind(this));
+      .delete(
+        Authenticator.protect,
+        Authenticator.restrictToAdmin,
+        this.deleteChef.bind(this)
+      )
+      .patch(
+        Authenticator.protect,
+        Authenticator.restrictToAdmin,
+        this.updateChef.bind(this)
+      );
   }
 
   async getChefs(req: Request, res: Response, next: NextFunction) {

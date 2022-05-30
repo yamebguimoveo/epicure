@@ -18,12 +18,8 @@ const signToken = (user: any) => {
 export class UserHandler {
   async signup(user: any) {
     try {
-      await User.create(user);
-      const SECRET = process.env.JWT_SECRET || "secret";
-      const token = jwt.sign({ name: user.name, email: user.email }, SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN || "10m",
-      });
-      return token;
+      const { email, name, _id } = await User.create(user);
+      return { email, name, _id };
     } catch (err) {
       throw err;
     }
@@ -61,6 +57,16 @@ export class UserHandler {
         .paginate();
       const users = await query;
       return users;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async checkIfUserExists(email: string) {
+    try {
+      const user = await User.find({ email });
+      if (user.length === 0) return false;
+      return user[0];
     } catch (err) {
       throw err;
     }
